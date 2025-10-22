@@ -3,27 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <meta name="theme-color" content="#4A90E2">
+    <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta name="keywords" content="{% if page.keywords %}{{ page.keywords }}{% else %}{{ site.keywords }}{% endif %}">
+    <meta name="author" content="{% if page.authors %}{% for author in page.authors %}{{ author.name | strip_html }}{% unless forloop.last %}, {% endunless %}{% endfor %}{% else %}{{ site.author.name }}{% endif %}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:title" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+    <meta property="og:image" content="{% if page.og_image %}{{ page.og_image | absolute_url }}{% else %}{{ '/assets/images/system_overview.jpg' | absolute_url }}{% endif %}">
+    <meta property="og:image:alt" content="{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:locale" content="en_US">
+    {% if page.venue %}<meta property="article:published_time" content="{{ page.date | default: site.time | date_to_xmlschema }}">{% endif %}
+    {% if page.authors %}<meta property="article:author" content="{{ page.authors[0].name | strip_html }}">{% endif %}
+    <meta property="article:section" content="Research">
+    <meta property="article:tag" content="deceptive patterns">
+    <meta property="article:tag" content="dark patterns">
+    <meta property="article:tag" content="machine learning">
+    <meta property="article:tag" content="web security">
+
+    <!-- Academic Meta Tags -->
+    {% if page.paper_url %}<meta name="citation_pdf_url" content="{{ page.paper_url }}">{% endif %}
+    {% if page.title %}<meta name="citation_title" content="{{ page.title }}">{% endif %}
+    {% if page.authors %}
+    {% for author in page.authors %}
+    <meta name="citation_author" content="{{ author.name | strip_html }}">
+    {% endfor %}
+    {% endif %}
+    {% if page.venue %}<meta name="citation_conference_title" content="{{ page.venue }}">{% endif %}
+    {% if page.date %}<meta name="citation_publication_date" content="{{ page.date | date: '%Y/%m/%d' }}">{% endif %}
     
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
     
-    <!-- Fonts -->
+    <!-- DNS Prefetch & Preconnect for Performance -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
     
-    <!-- CSS -->
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- CSS with Preload -->
+    <link rel="preload" href="{{ '/assets/css/main.css' | relative_url }}" as="style">
+    <link rel="preload" href="{{ '/assets/css/project.css' | relative_url }}" as="style">
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/project.css' | relative_url }}">
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ScholarlyArticle",
+      "headline": "{{ page.title | strip_html }}",
+      "name": "{{ page.title | strip_html }}",
+      "description": "{{ page.description | default: site.description | strip_html }}",
+      {% if page.paper_url %}"url": "{{ page.paper_url }}",{% endif %}
+      "datePublished": "{{ page.date | default: '2025-10-14' | date_to_xmlschema }}",
+      "dateModified": "{{ page.last_modified_at | default: site.time | date_to_xmlschema }}",
+      {% if page.authors %}
+      "author": [
+        {% for author in page.authors %}
+        {
+          "@type": "Person",
+          "name": "{{ author.name | strip_html }}",
+          "email": "{{ author.email }}"
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ],
+      {% endif %}
+      "publisher": {
+        "@type": "Organization",
+        "name": "{{ page.affiliation | default: 'University of Wisconsin - Madison' }}",
+        "url": "{{ site.url }}"
+      },
+      {% if page.venue %}
+      "isPartOf": {
+        "@type": "Event",
+        "name": "{{ page.venue }}",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode"
+      },
+      {% endif %}
+      {% if page.award %}
+      "award": "{{ page.award | strip_html }}",
+      {% endif %}
+      "image": "{{ '/assets/images/system_overview.jpg' | absolute_url }}",
+      "keywords": "deceptive patterns, dark patterns, machine learning, web security, UI detection, privacy, computer vision, natural language processing",
+      "inLanguage": "en",
+      {% if page.paper_url %}
+      "associatedMedia": {
+        "@type": "MediaObject",
+        "contentUrl": "{{ page.paper_url }}"
+      },
+      {% endif %}
+      "mainEntity": {
+        "@type": "SoftwareApplication",
+        "name": "AutoBot",
+        "applicationCategory": "SecurityApplication",
+        "operatingSystem": "Web Browser",
+        {% if page.demo_url %}"url": "{{ page.demo_url }}",{% endif %}
+        {% if page.code_url %}"codeRepository": "{{ page.code_url }}",{% endif %}
+        "description": "A framework that accurately identifies and localizes deceptive patterns from website screenshots without relying on HTML code."
+      }
+    }
+    </script>
 </head>
 <body>
     <!-- Main Content -->
-    <main class="project-main">
+    <main class="project-main" role="main" itemscope itemtype="https://schema.org/ScholarlyArticle">
         <div class="project-container">
             <!-- Header -->
-            <div class="project-header">
-                <h1 class="project-title">{{ page.title }}</h1>
+            <header class="project-header">
+                <h1 class="project-title" itemprop="headline name">{{ page.title }}</h1>
                 
                 {% if page.authors %}
                 <div class="project-authors-grid">
@@ -43,28 +144,28 @@
                 {% endif %}
 
                 {% if page.affiliation %}
-                <div class="project-affiliation">
-                    {{ page.affiliation }}
+                <div class="project-affiliation" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                    <span itemprop="name">{{ page.affiliation }}</span>
                 </div>
                 {% endif %}
 
                 {% if page.venue %}
-                <div class="project-venue">
-                    {{ page.venue }}
+                <div class="project-venue" itemprop="isPartOf" itemscope itemtype="https://schema.org/Event">
+                    <span itemprop="name">{{ page.venue }}</span>
                 </div>
                 {% endif %}
 
                 {% if page.award %}
-                <div class="project-award">
-                    <span class="award-emoji">🏆</span> <span class="award-text">CCS 2025 Distinguished Paper Award</span>
+                <div class="project-award" itemprop="award">
+                    <span class="award-emoji" aria-label="Award trophy">🏆</span> <span class="award-text">CCS 2025 Distinguished Paper Award</span>
                 </div>
                 {% endif %}
 
                 <!-- Links -->
-                <div class="project-links">
+                <nav class="project-links" aria-label="Research paper resources">
                     {% if page.paper_url and page.paper_url != "" %}
-                    <a href="{{ page.paper_url }}" class="btn btn-primary" target="_blank">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <a href="{{ page.paper_url }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer" itemprop="url">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                             <polyline points="14 2 14 8 20 8"></polyline>
                             <line x1="16" y1="13" x2="8" y2="13"></line>
@@ -75,8 +176,8 @@
                     </a>
                     {% endif %}
                     {% if page.code_url and page.code_url != "" %}
-                    <a href="{{ page.code_url }}" class="btn btn-outline" target="_blank">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <a href="{{ page.code_url }}" class="btn btn-outline" target="_blank" rel="noopener noreferrer" itemprop="codeRepository">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <polyline points="16 18 22 12 16 6"></polyline>
                             <polyline points="8 6 2 12 8 18"></polyline>
                         </svg>
@@ -103,8 +204,8 @@
                     </a>
                     {% endif %}
                     {% if page.demo_url and page.demo_url != "" %}
-                    <a href="{{ page.demo_url }}" class="btn btn-outline" target="_blank">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <a href="{{ page.demo_url }}" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <polygon points="5 3 19 12 5 21 5 3"></polygon>
                         </svg>
                         Demo
@@ -120,23 +221,23 @@
                         Slides
                     </a>
                     {% endif %}
-                </div>
-            </div>
+                </nav>
+            </header>
 
             <!-- Content -->
-            <div class="project-content">
+            <article class="project-content" itemprop="articleBody">
                 {{ content }}
-            </div>
+            </article>
 
             <!-- Citation -->
             {% if page.bibtex %}
-            <div class="project-citation">
+            <section class="project-citation" aria-label="Citation">
                 <h2>BibTeX</h2>
                 <div class="bibtex-container">
-                    <button class="copy-btn" onclick="copyBibtex()">Copy</button>
-                    <pre><code id="bibtex-code">{{ page.bibtex }}</code></pre>
+                    <button class="copy-btn" onclick="copyBibtex()" aria-label="Copy BibTeX citation">Copy</button>
+                    <pre><code id="bibtex-code" itemprop="citation">{{ page.bibtex }}</code></pre>
                 </div>
-            </div>
+            </section>
             {% endif %}
         </div>
     </main>

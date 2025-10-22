@@ -20,9 +20,19 @@ description: >-
   from website screenshots without relying on HTML code. AutoBot achieves an F1-score of 0.93 
   in detecting deceptive patterns, offering essential tools for users, developers, and regulators.
 baseurl: "/deceptive-pattern-paper"
-url: "https://wi-pi.github.io"
-twitter_username: asmitnayak
-github_username: asmit-nayak
+url: "https://wiscprivacy.com/"
+github_username: asmitnayak
+
+# SEO settings
+keywords: >-
+  deceptive patterns, dark patterns, AutoBot, machine learning, web security, 
+  UI detection, privacy, computer vision, NLP, user interface manipulation, 
+  online privacy, browser extension, web measurement, ACM CCS 2025, 
+  University of Wisconsin Madison, YOLO, knowledge distillation, 
+  automated detection, web accessibility
+lang: en_US
+logo: /assets/images/system_overview.jpg
+tagline: "Automated Detection of Deceptive Patterns on the Web"
 
 # Author information
 author:
@@ -30,15 +40,9 @@ author:
   email: "anayak6@wisc.edu"
   bio: "PhD Student at University of Wisconsin-Madison, researching web security and privacy"
   avatar: "/assets/images/asmit.jpg"
+  affiliation: "University of Wisconsin - Madison"
+  url: "https://asmitnayak.com"
 
-# Social links
-social:
-  - name: "GitHub"
-    url: "https://github.com/asmit-nayak"
-  - name: "Twitter"
-    url: "https://twitter.com/asmitnayak"
-  - name: "arXiv"
-    url: "https://arxiv.org/abs/2411.07441"
 
 # Build settings
 theme: null

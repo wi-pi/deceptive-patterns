@@ -1,0 +1,43 @@
+# Robots.txt for AutoBot: Automatically Detecting Online Deceptive Patterns
+# Website: https://wiscprivacy.com/deceptive-pattern-paper/
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://wiscprivacy.com/deceptive-pattern-paper/sitemap.xml
+
+# Crawl-delay for aggressive bots (optional, can be adjusted)
+Crawl-delay: 1
+
+# Allow all common search engine bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+# Block assets that don't need indexing (if any)
+# Uncomment if you want to block specific paths
+# Disallow: /assets/css/
+# Disallow: /assets/js/
+
+# Allow all images to be indexed
+User-agent: Googlebot-Image
+Allow: /assets/images/
+

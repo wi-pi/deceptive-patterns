@@ -1,6 +1,11 @@
 ---
 layout: project
 title: "Automatically Detecting Online Deceptive Patterns"
+description: "AutoBot accurately identifies and localizes deceptive patterns from website screenshots without relying on HTML code, achieving an F1-score of 0.93. In this paper we introduce a two-stage framework combining vision models and LLMs for detecting dark patterns on websites."
+keywords: "deceptive patterns, dark patterns, AutoBot, machine learning, web security, UI detection, privacy, computer vision, NLP, ACM CCS 2025, browser extension, web measurement, YOLO, knowledge distillation, automated detection, user manipulation, cookie banners, online privacy, University of Wisconsin Madison"
+og_image: /assets/images/system_overview.jpg
+date: 2025-10-14
+last_modified_at: 2025-10-22
 authors:
   - name: '<a href="https://asmitnayak.com" target="_blank">Asmit Nayak</a>'
     email: "anayak6@wisc.edu"
@@ -22,7 +27,6 @@ code_url: ""
 dataset_url: ""
 demo_url: "https://huggingface.co/spaces/WIPI/DeceptivePatternDetector"
 slides_url: "/assets/slides/ccs_2025.pptx"
-description: "AutoBot accurately identifies and localizes deceptive patterns from website screenshots without relying on HTML code, achieving an F1-score of 0.93."
 permalink: /
 bibtex: |
   @article{nayak2025autobot,
@@ -47,11 +51,11 @@ While state-of-the-art vision-language models show promise in understanding visu
 <div class="project-figure">
   <div style="display: flex; gap: 20px; justify-content: space-evenly; align-items: flex-start; flex-wrap: wrap;">
     <div style="width: 35%; min-width: 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="{{ '/assets/images/gemini-failure.jpg' | relative_url }}" alt="Gemini Failure Case" style="width: 100%;">
+      <img src="{{ '/assets/images/gemini-failure.jpg' | relative_url }}" alt="Example of Gemini AI incorrectly detecting deceptive patterns in cookie consent banner, showing hallucination issues in large language models" style="width: 100%;">
       <figcaption style="margin-top: 10px; font-size: 0.9em; text-align: center;">Gemini hallucinates that the "Accept all cookies" button being more visually prominent than the "Necessary cookies only" one.</figcaption>
     </div>
     <div style="width: 35%; min-width: 300px; display: flex; flex-direction: column; align-items: center;">
-      <img src="{{ '/assets/images/gpt-failure.jpg' | relative_url }}" alt="GPT-4V Failure Case" style="width: 100%;">
+      <img src="{{ '/assets/images/gpt-failure.jpg' | relative_url }}" alt="Example of GPT-4V incorrectly analyzing visual differences in cookie banner buttons, demonstrating limitations of vision-language models" style="width: 100%;">
       <figcaption style="margin-top: 10px; font-size: 0.9em; text-align: center;">GPT-4.5 hallucinates that the "Accept all cookies" and "Reject all" button are visually different.</figcaption>
     </div>
   </div>
@@ -64,7 +68,7 @@ These limitations motivated us to develop a specialized framework that combines 
 ## The AutoBot Framework
 
 <div class="project-figure">
-  <img src="{{ '/assets/images/system_overview.jpg' | relative_url }}" alt="AutoBot Two-Stage Pipeline">
+  <img src="{{ '/assets/images/system_overview.jpg' | relative_url }}" alt="AutoBot framework architecture showing two-stage pipeline: Vision Module for UI element localization and Language Module for deceptive pattern detection" style="width: 100%; height: auto;">
   <figcaption>AutoBot's two-stage pipeline: (1) Vision Module to localize UI elements and extract features, (2) Language Module to detect deceptive patterns.</figcaption>
 </div>
 
@@ -76,7 +80,7 @@ To address high false positive rates and localization issues, the Vision Module 
 <div class="project-figure" style="margin-top: -2rem; margin-bottom: 2rem;">
   <div class="vision-module-flex" style="display: flex; gap: 20px; justify-content: center; align-items: flex-end;">
     <div class="vision-module-item" style="width: 48%; display: flex; flex-direction: column; align-items: center;">
-      <img src="{{ '/assets/images/ui-detector.png' | relative_url }}" alt="UI Detector" style="width: 100%;">
+      <img src="{{ '/assets/images/ui-detector.png' | relative_url }}" alt="Synthetic dataset generation pipeline for training the Web-UI Detector using YOLO model" style="width: 100%; height: auto;">
       <figcaption style="margin-top: 10px; font-size: 0.9em; text-align: center;">(a) Synthetic dataset generation pipeline for training the Web-UI Detector</figcaption>
     </div>
     <div class="vision-module-item" style="width: 48%; display: flex; flex-direction: column; align-items: center;">
@@ -99,7 +103,7 @@ To address high false positive rates and localization issues, the Vision Module 
 The Language Module takes the *ElementMap* as input and maps each element to a deceptive pattern from our taxonomy. This module reasons about each element considering its spatial context and visual features. We explore different instantiations of this module—such as distilling smaller models like Qwen and T5 from a larger teacher model like Gemini—to achieve various trade-offs in terms of cost, need for training, and accuracy.
 
 <div class="project-figure">
-  <img src="{{ '/assets/images/language-module.png' | relative_url }}" alt="Language Module Detection">
+  <img src="{{ '/assets/images/language-module.png' | relative_url }}" alt="Language Module process showing ElementMap analysis for identifying and classifying deceptive patterns using large language models" style="width: 100%; height: auto;">
   <figcaption>The Language Module analyzes <em>ElementMap data</em> to identify and classify deceptive patterns in context.</figcaption>
 </div>
 
@@ -116,13 +120,13 @@ The Language Module takes the *ElementMap* as input and maps each element to a d
     </div>
     
     <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-      <img src="{{ '/assets/images/distillation.png' | relative_url }}" alt="Knowledge Distillation Pipeline" style="width: 100%; max-width: 500px;">
+      <img src="{{ '/assets/images/distillation.png' | relative_url }}" alt="Knowledge distillation pipeline showing how AutoBot generates synthetic dataset to train smaller models like Qwen and T5 from Gemini teacher model" style="width: 100%; max-width: 500px; height: auto;">
       <figcaption style="margin-top: 10px; font-size: 0.9em; text-align: center;">Knowledge distillation pipeline: <em>AutoBot</em> generates a synthetic dataset which is used to distill smaller models.</figcaption>
     </div>
   </div>
   
   <div style="text-align: center; margin: 30px 0;">
-    <img src="{{ '/assets/images/model-tradeoffs.png' | relative_url }}" alt="Model Trade-offs" style="width: 100%; max-width: 800px;">
+    <img src="{{ '/assets/images/model-tradeoffs.png' | relative_url }}" alt="Comparison chart showing performance trade-offs between Gemini, Qwen-2.5-1.5B, and T5-base models in terms of accuracy, latency, cost, and privacy" style="width: 100%; max-width: 800px; height: auto;">
   </div>
 </div>
 
