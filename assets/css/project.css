@@ -153,6 +153,12 @@
     padding: 10px 20px;
 }
 
+.hf-logo {
+    width: 1.6em;
+    height: 1.6em;
+    vertical-align: text-bottom;
+}
+
 /* Content Section */
 .project-content {
     margin-bottom: 40px;

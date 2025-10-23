@@ -193,7 +193,24 @@
                         arXiv
                     </a>
                     {% endif %}
-                    {% if page.dataset_url and page.dataset_url != "" %}
+                    {% if page.demo_url and page.demo_url != "" %}
+                    <a href="{{ page.demo_url }}" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        Demo
+                    </a>
+                    {% endif %}
+                    {% if page.dataset_urls %}
+                    {% for dataset in page.dataset_urls %}
+                    {% if dataset.url and dataset.url != "" %}
+                    <a href="{{ dataset.url }}" class="btn btn-outline" target="_blank">
+                        <img src="{{ '/assets/images/hf-logo.svg' | relative_url }}" alt="Hugging Face logo" class="hf-logo">
+                        {{ dataset.name }}
+                    </a>
+                    {% endif %}
+                    {% endfor %}
+                    {% elsif page.dataset_url and page.dataset_url != "" %}
                     <a href="{{ page.dataset_url }}" class="btn btn-outline" target="_blank">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
@@ -201,14 +218,6 @@
                             <line x1="12" y1="22.08" x2="12" y2="12"></line>
                         </svg>
                         Dataset
-                    </a>
-                    {% endif %}
-                    {% if page.demo_url and page.demo_url != "" %}
-                    <a href="{{ page.demo_url }}" class="btn btn-outline" target="_blank" rel="noopener noreferrer">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                        </svg>
-                        Demo
                     </a>
                     {% endif %}
                     {% if page.slides_url and page.slides_url != "" %}

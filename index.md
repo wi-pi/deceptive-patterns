@@ -24,7 +24,11 @@ equal_contribution: "*Indicates Equal Contribution"
 paper_url: "https://arxiv.org/pdf/2411.07441"
 code_url: ""
 #arxiv_url: "https://arxiv.org/abs/2411.07441"
-dataset_url: ""
+dataset_urls:
+  - name: "D3 Dataset"
+    url: "https://huggingface.co/datasets/WIPI/deceptive_patterns_synthetic"
+  - name: "Dataset 2"
+    url: ""
 demo_url: "https://huggingface.co/spaces/WIPI/DeceptivePatternDetector"
 slides_url: "/assets/slides/ccs_2025.pptx"
 permalink: /
