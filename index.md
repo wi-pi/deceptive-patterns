@@ -50,7 +50,7 @@ bibtex: |
 
 ## How Off-the-Shelf LLMs Fall Short
 
-While state-of-the-art vision-language models show promise in understanding visual content, directly applying them to detect deceptive patterns reveals significant limitations. These models often struggle with hallucination and lack of localization needed to identify deceptive patterns in real-world web interfaces. 
+While state-of-the-art vision-language models show promise in understanding visual content, directly applying them to detect deceptive patterns reveals significant limitations. These models often struggle with hallucination and lack of localization needed to identify deceptive patterns in real-world web interfaces.
 
 <div class="project-figure">
   <div style="display: flex; gap: 20px; justify-content: space-evenly; align-items: flex-start; flex-wrap: wrap;">
@@ -117,7 +117,7 @@ The Language Module takes the *ElementMap* as input and maps each element to a d
   <div style="display: flex; gap: 30px; align-items: center; flex-wrap: wrap; margin-bottom: 30px;">
     <div style="flex: 1; min-width: 300px; text-align: left;">
       <p style="margin-top: 0;">While large language models like Gemini achieve high accuracy in detecting deceptive patterns, using such closed-source models presents its own challenges such as high usage cost, considerable latency and potential data-privacy concerns. To address this, we employ knowledge distillation to create smaller, more efficient models that maintain strong detection performance while being faster and more cost-effective.</p>
-      
+
       <p>We leverage <em>AutoBot</em> with Gemini as the underlying language model to label deceptive patterns, we create a large-scale dataset of labeled examples, <code><em>D<sub>distill</sub></em></code>. This synthetic dataset captures the teacher model's, i.e. Gemini's, classification along with it's reasoning for those classifications.</p>
       
       <p style="margin-bottom: 0;">Using this dataset, <code><em>D<sub>distill</sub></em></code>, we distill knowledge from the Gemini teacher model into two smaller student models: Qwen-2.5-1.5B and T5-base. The distillation process trains these models to replicate Gemini's pattern detection capabilities by learning from its predictions. This approach enables us to achieve different trade-offs across various metrics such as performance, data privacy, and latency.</p>
@@ -128,7 +128,7 @@ The Language Module takes the *ElementMap* as input and maps each element to a d
       <figcaption style="margin-top: 10px; font-size: 0.9em; text-align: center;">Knowledge distillation pipeline: <em>AutoBot</em> generates a synthetic dataset which is used to distill smaller models.</figcaption>
     </div>
   </div>
-  
+
   <div style="text-align: center; margin: 30px 0;">
     <img src="{{ '/assets/images/model-tradeoffs.png' | relative_url }}" alt="Comparison chart showing performance trade-offs between Gemini, Qwen-2.5-1.5B, and T5-base models in terms of accuracy, latency, cost, and privacy" style="width: 100%; max-width: 800px; height: auto;">
   </div>
@@ -155,7 +155,7 @@ To quantify the trade-offs between these three model instantiations, we evaluate
 </div>
 
 
-## Demo Video 
+## Demo Video
 
 <div class="video-section">
   <video controls muted loop playsinline preload="auto" autoplay>
