@@ -34,21 +34,21 @@ slides_url: "/assets/slides/ccs_2025.pptx"
 permalink: /
 bibtex: |
   @inproceedings{10.1145/3719027.3765191,
-  author = {Nayak, Asmit and Wani, Yash and Zhang, Shirley and Khandelwal, Rishabh and Fawaz, Kassem},
-  title = {Automatically Detecting Online Deceptive Patterns},
-  year = {2025},
-  isbn = {9798400715259},
-  publisher = {Association for Computing Machinery},
-  address = {New York, NY, USA},
-  url = {https://doi.org/10.1145/3719027.3765191},
-  doi = {10.1145/3719027.3765191},
-  booktitle = {Proceedings of the 2025 ACM SIGSAC Conference on Computer and Communications Security},
-  pages = {96–110},
-  numpages = {15},
-  keywords = {automated detection of deceptive patterns, computer vision, deceptive patterns, knowledge distillation, multi-modal large language models, synthetic data generation, ui element detection},
-  location = {Taipei, Taiwan},
-  series = {CCS '25}
-}
+      author = {Nayak, Asmit and Wani, Yash and Zhang, Shirley and Khandelwal, Rishabh and Fawaz, Kassem},
+      title = {Automatically Detecting Online Deceptive Patterns},
+      year = {2025},
+      isbn = {9798400715259},
+      publisher = {Association for Computing Machinery},
+      address = {New York, NY, USA},
+      url = {https://doi.org/10.1145/3719027.3765191},
+      doi = {10.1145/3719027.3765191},
+      booktitle = {Proceedings of the 2025 ACM SIGSAC Conference on Computer and Communications Security},
+      pages = {96–110},
+      numpages = {15},
+      keywords = {automated detection of deceptive patterns, computer vision, deceptive patterns, knowledge distillation, multi-modal large language models, synthetic data generation, ui element detection},
+      location = {Taipei, Taiwan},
+      series = {CCS '25}
+    }
 ---
 
 ## Abstract
